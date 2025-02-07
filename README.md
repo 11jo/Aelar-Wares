@@ -17,4 +17,4 @@ Extract the contents of the mod to your Baldur's Gate II: Enhanced Edition folde
 There shouldn't be any compatability issues with other mods unless they make use of the same store Aelar is in. This mod should also be fully compatabile with EET.
 
 # Known Issues
-- The Enumclaw Dagger provides only one charge of Call Lightning upon purchasing but will still provide two charges after resting.
+- None currently.
