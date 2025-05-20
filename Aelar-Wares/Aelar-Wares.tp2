@@ -7,7 +7,7 @@
 BACKUP ~weidu_external/backup/Aelar-Wares~
 AUTHOR ~ShadowfireAngel at shadowfireangel346@gmail.com; alternatively reach out to ShadowfireAngel on Discord~
 
-VERSION ~v1.4.1~
+VERSION ~v1.4~
 README ~Aelar-Wares/Readme-Aelar.txt~
 
 AUTO_TRA ~%MOD_FOLDER%/translations/%s~
