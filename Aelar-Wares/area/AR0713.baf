@@ -1,0 +1,8 @@
+IF
+	Global("_SAELAR","MYAREA",0)
+THEN
+	RESPONSE #100
+	CreateCreature("_SAELAR",[370.465],2)
+	SetGlobal("_SAELAR","MYAREA",1)
+	Continue()
+END

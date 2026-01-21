@@ -1,0 +1,21 @@
+IF
+	AreaCheck("AR0713")
+	IsActive(Myself)
+	OR(2)
+		TimeOfDay(DUSK)
+		TimeOfDay(NIGHT)
+THEN
+	RESPONSE #100
+		Deactivate(Myself)
+END
+
+IF
+	AreaCheck("AR0713")
+	!IsActive(Myself)
+	OR(2)
+		TimeOfDay(DAY)
+		TimeOfDay(MORNING)
+THEN
+	RESPONSE #100
+		Activate(Myself)
+END
