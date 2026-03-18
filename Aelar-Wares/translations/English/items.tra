@@ -26,11 +26,11 @@ Weight: 1 ~
 
 This axe is one of two weapons that were made as a pair.
 
+STATISTICS:
+
 Combat abilities:
 - Can cast Lightning Bolt once per day.
 - Deals an additional 1d6 points of electricity damge with each successful strike.
-
-STATISTICS:
 
 THAC0: +3 
 Damage: 1d8+3

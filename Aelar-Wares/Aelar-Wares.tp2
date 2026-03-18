@@ -2,33 +2,38 @@
 *																			   *
 * New store filled with magical items for Baldur's Gate II: Enhanced Edition!  *
 *																			   *
-********************************************************************************/ 
+********************************************************************************/
 
 BACKUP ~weidu_external/backup/Aelar-Wares~
 AUTHOR ~ShadowfireAngel at shadowfireangel346@gmail.com; alternatively reach out to ShadowfireAngel on Discord~
 
-VERSION ~v1.4.1~
+VERSION ~v1.4.2~
 README ~Aelar-Wares/Readme-Aelar.txt~
-
-AUTO_TRA ~%MOD_FOLDER%/translations/%s~
 
 ALWAYS
   INCLUDE ~%MOD_FOLDER%/library/eet.tph~
   INCLUDE ~%MOD_FOLDER%/library/functions.tph~
 END
 
-LANGUAGE ~English~ ~English~ ~%MOD_FOLDER%/translations/English/items.tra~
-							 ~%MOD_FOLDER%/translations/English/setup.tra~
-		 
+AUTO_TRA ~%MOD_FOLDER%/translations/%s~
+
+LANGUAGE ~English~
+         ~English~
+         ~%MOD_FOLDER%/translations/English/items.tra~
+         ~%MOD_FOLDER%/translations/English/setup.tra~
+
   // Installation of new NPC & store
 BEGIN @1 //Aelar's Emporium of Magical Wonders - Enhanced Edition
+DESIGNATED 0
+LABEL ~Aelar-Wares_ShadowfireAngel~
+REQUIRE_PREDICATE GAME_IS ~bg2ee eet bgt~ ~This mod need BG2EE, BGT or EET~
 
 APPEND ~STATE.IDS~ ~0x80101FEF CD_STATE_NOTVALID~
 UNLESS ~CD_STATE_NOTVALID~
 
 // CRE + WAV Installation
 COPY ~%MOD_FOLDER%/creature/_SAelar.cre~ ~override/_SAelar.cre~
-	SAY NAME1 @10 // Aelar 
+	SAY NAME1 @10 // Aelar
 	SAY NAME2 @10 // Aelar
 	SAY INTERACTION1 @20 // The fair folk rarely have time for small talk.
 	SAY INTERACTION2 @21 // Troubled times are upon us.
@@ -39,18 +44,19 @@ COPY ~%MOD_FOLDER%/creature/_SAelar.cre~ ~override/_SAelar.cre~
 	WRITE_ASCII SCRIPT_OVERRIDE ~_SAelar~ #8 // script override
 	WRITE_ASCII DEATHVAR ~_SAelar~ #32  //death variable
 
-	
+
 COPY ~%MOD_FOLDER%/sounds~ ~override~
 COPY ~%MOD_FOLDER%/graphics~ ~override~
 COPY ~%MOD_FOLDER%/spells~ ~override~
 COPY ~%MOD_FOLDER%/effects~ ~override~
-COPY ~%MOD_FOLDER%/area~ ~override~
+// Avoid overwriting original area
+// COPY ~%MOD_FOLDER%/area~ ~override~
 
 // Add Map Note
 COPY_EXISTING ~AR0700.are~ ~override~ //Athkatla
 	ADD_MAP_NOTE #1486 #1758 ~gray~ @1000
 
-// Store 
+// Store
 COPY ~%MOD_FOLDER%/stores~ ~override~
 	SAY STORE_NAME @1 // Aelar's Emporium of Magical Wonders
 
@@ -66,37 +72,37 @@ COPY ~%MOD_FOLDER%/items/_SAEL002.itm~ ~override~
 	SAY NAME2 @203 // Identified Name
 	SAY UNIDENTIFIED_DESC @204 // Unidentifed Description
 	SAY IDENTIFIED_DESC @204 // Identifed Description
-	
+
 COPY ~%MOD_FOLDER%/items/_SAEL003.itm~ ~override~
 	SAY NAME1 @205 // Unidentifed Name
 	SAY NAME2 @205 // Identified Name
 	SAY UNIDENTIFIED_DESC @206 // Unidentifed Description
 	SAY IDENTIFIED_DESC @206 // Identifed Description
-	
+
 COPY ~%MOD_FOLDER%/items/_SAEL004.itm~ ~override~
 	SAY NAME1 @207 // Unidentifed Name
 	SAY NAME2 @207 // Identified Name
 	SAY UNIDENTIFIED_DESC @208 // Unidentifed Description
 	SAY IDENTIFIED_DESC @208 // Identifed Description
-	
+
 COPY ~%MOD_FOLDER%/items/_SAEL005.itm~ ~override~
 	SAY NAME1 @209 // Unidentifed Name
 	SAY NAME2 @209 // Identified Name
 	SAY UNIDENTIFIED_DESC @210 // Unidentifed Description
 	SAY IDENTIFIED_DESC @210 // Identifed Description
-	
+
 COPY ~%MOD_FOLDER%/items/_SAEL006.itm~ ~override~
 	SAY NAME1 @211 // Unidentifed Name
 	SAY NAME2 @211 // Identified Name
 	SAY UNIDENTIFIED_DESC @212 // Unidentifed Description
 	SAY IDENTIFIED_DESC @212 // Identifed Description
-	
+
 COPY ~%MOD_FOLDER%/items/_SAEL007.itm~ ~override~
 	SAY NAME1 @213 // Unidentifed Name
 	SAY NAME2 @213 // Identified Name
 	SAY UNIDENTIFIED_DESC @214 // Unidentifed Description
 	SAY IDENTIFIED_DESC @214 // Identifed Description
-	
+
 COPY ~%MOD_FOLDER%/items/_SAEL008.itm~ ~override~
 	SAY NAME1 @215 // Unidentifed Name
 	SAY NAME2 @215 // Identified Name
@@ -133,9 +139,19 @@ COPY ~%MOD_FOLDER%/items/_SAEL013.itm~ ~override~
 	SAY UNIDENTIFIED_DESC @226 // Unidentifed Description
 	SAY IDENTIFIED_DESC @226 // Identifed Description
 
-// Dialogue 
+// Dialogue
 COMPILE EVALUATE_BUFFER ~%MOD_FOLDER%/dialogue/_SAelar.d~
-	
+
+// Assign missing area script
+COPY_EXISTING ~AR0713.are~ ~override~
+		WRITE_ASCII 0x94 ~AR0713~ #8
+
+// Create _SAelar.cre
+EXTEND_TOP ~AR0713.bcs~ ~%MOD_FOLDER%/area/AR0713.baf~
+
+// Aelar override script will activate deactivate depending day / night
+COMPILE ~%MOD_FOLDER%/area/_SAelar.baf~
+
 APPEND ~pdialog.2da~
 ~_SAelar~
 
